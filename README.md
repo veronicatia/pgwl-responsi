@@ -37,4 +37,4 @@ Situs web ini dibangun untuk menyajikan informasi terkini mengenai lokasi-lokasi
 
 ### Tangkapan layar
 1. Landing page
-   <img src="asstes/landing.png">
+   <img src="/asstes/landing.png">
