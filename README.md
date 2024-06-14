@@ -37,4 +37,5 @@ Situs web ini dibangun untuk menyajikan informasi terkini mengenai lokasi-lokasi
 
 ### Tangkapan layar
 1. Landing page
-   <img src="/asstes/landing.png">
+   ![landing](https://github.com/veronicatia/pgwl-responsi/assets/128561704/1aaecd66-051f-46f7-8cdc-fddeb53e00c0)
+
