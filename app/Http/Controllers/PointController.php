@@ -149,39 +149,39 @@ class PointController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //validate request
+        // validate request
         $request->validate(
             [
                 'name' => 'required',
                 'geom' => 'required',
-                'image' => 'mimes:jpeg,jpg,png, tiff, gif|max:10000' //10mb
+                'image' => 'mimes:jpeg,jpg,png,tiff,gif|max:10000' // 10MB
             ],
             [
                 'name.required' => 'Name is required',
-                'geom.required' => 'required',
-                'images.mimes' => 'Image must be a file of type: jpg, jpeg, png, tiff, gif',
-                'images.max' => 'Image must nit excees 10MB'
+                'geom.required' => 'Geometry is required',
+                'image.mimes' => 'Image must be a file of type: jpg, jpeg, png, tiff, gif',
+                'image.max' => 'Image must not exceed 10MB'
             ]
         );
+
         // create folder images
         if (!is_dir('storage/images')) {
-            mkdir('storage/image', 0777);
+            mkdir('storage/images', 0777, true);
         }
 
         // upload image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = time(). '_point.'. $image->getClientOriginalExtension();
+            $filename = time() . '_point.' . $image->getClientOriginalExtension();
             $image->move('storage/images', $filename);
 
-            //delete image
-            $image_old = $request->image_old;
-            if ($image_old!= null) {
-                unlink('storage/images/'. $image_old);
-            } else {
-                $filename = $request->image_old;
+            // delete old image
+            $oldImage = $request->image_old;
+            if ($oldImage != null) {
+                if (file_exists('storage/images/' . $oldImage)) {
+                    unlink('storage/images/' . $oldImage);
+                }
             }
-
         } else {
             $filename = $request->image_old;
         }
@@ -193,14 +193,15 @@ class PointController extends Controller
             'image' => $filename
         ];
 
-        // create point
+        // update point
         if (!$this->point->find($id)->update($data)) {
-            return redirect()->back()->with('error', 'Failed to create point');
+            return redirect()->back()->with('error', 'Failed to update point');
         }
 
         // redirect to map
-        return redirect()->back()->with('success', 'Point created successfully');
+        return redirect()->back()->with('success', 'Point updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

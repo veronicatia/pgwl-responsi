@@ -39,7 +39,7 @@
                     <form action="{{ route('store-point') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 placeholder="Fill point name">
                         </div>
@@ -82,7 +82,7 @@
                     <form action="{{ route('store-polygon') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 placeholder="Fill point name">
                         </div>
@@ -212,37 +212,38 @@
         // switchBasemap("Esri World Imagery");
 
 
-
         /* GeoJSON Point */
         var point = L.geoJson(null, {
             onEachFeature: function(feature, layer) {
-                var popupContent = "Name: " + feature.properties.name + "<br>" + "Alamat: " + feature
-                    .properties.description + "<br>" +
-                    "Foto: <img src='{{ asset('storage/images/') }}/" + feature.properties.image +
-                    "'class='img-thumbnail' alt=''>" + "<br>" +
-
+                var imagePath = "{{ asset('storage/images/') }}/" + feature.properties.image;
+                var popupContent = "Nama: " + feature.properties.name + "<br>" +
+                    "Alamat: " + feature.properties.description + "<br>" +
+                    "Foto: <img src='" + imagePath + "' class='img-thumbnail' alt='Gambar tidak ditemukan'>" +
+                    "<br>" +
                     "<div class='d-flex flex-row mt-3'>" +
                     "<a href='{{ url('edit-point') }}/" + feature.properties.id +
                     "' class='btn btn-sm btn-warning me-2'><i class='fa-solid fa-edit'></i></a>" +
-
-                    "<form action='{{ url('delete-point') }}/" + feature.properties.id + "' method='POST'>" +
+                    "<form action='{{ url('delete-point') }}/" + feature.properties.id +
+                    "' method='POST' onsubmit='return confirm(\"Yakin Anda ingin menghapus data ini?\")'>" +
                     '{{ csrf_field() }}' +
                     '{{ method_field('DELETE') }}' +
+                    "<button type='submit' class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></button>" +
+                    "</form>" +
+                    "</div>";
 
-                    "<button type='submit' class='btn btn-danger' onclick='return confirm(Yakin Anda ingin menghapus data ini?)'><i class='fa-solid fa-trash-can'></i></button>" +
-                    "</form>"
-
-                "</div>";
                 layer.on({
                     click: function(e) {
-                        point.bindPopup(popupContent);
+                        layer.bindPopup(popupContent).openPopup(e.latlng);
                     },
                     mouseover: function(e) {
-                        point.bindTooltip(feature.properties.name);
-                    },
+                        layer.bindTooltip(feature.properties.name, {
+                            sticky: true
+                        });
+                    }
                 });
-            },
+            }
         });
+
         $.getJSON("{{ route('api.points') }}", function(data) {
             point.addData(data);
             map.addLayer(point);
@@ -250,51 +251,36 @@
 
         /* GeoJSON Polygon */
         var polygon = L.geoJson(null, {
-            /* Style polygon */
-            style: function(feature) {
-                return {
-                    color: "#3388ff", // Warna garis batas polygon
-                    fillColor: "#3388ff", // Warna fill polygon (untuk area di dalamnya)
-                    weight: 2, // Ketebalan garis batas polygon
-                    opacity: 1, // Opasitas (transparansi) polygon
-                    fillOpacity: 0.6, // Opasitas (transparansi) fill polygon
-                    fillPattern: {
-                        url: '{{ asset('assets/polygon.png') }}', // URL gambar pattern
-                        width: 32, // Lebar gambar pattern
-                        height: 32 // Tinggi gambar pattern
-                    }
-                };
-            },
             onEachFeature: function(feature, layer) {
-                var popupContent = "Name: " + feature.properties.name + "<br>" + "Alamat: " + feature
-                    .properties.description + "<br>" +
-                    "Foto: <img src='{{ asset('storage/images/') }}/" + feature.properties.image +
-                    "'class='img-thumbnail' alt=''>" + "<br>" +
-
+                var imagePath = "{{ asset('storage/images/') }}/" + feature.properties.image;
+                var popupContent = "Nama: " + feature.properties.name + "<br>" +
+                    "Alamat: " + feature.properties.description + "<br>" +
+                    "Foto: <img src='" + imagePath + "' class='img-thumbnail' alt='Gambar tidak ditemukan'>" +
+                    "<br>" +
                     "<div class='d-flex flex-row mt-3'>" +
                     "<a href='{{ url('edit-polygon') }}/" + feature.properties.id +
                     "' class='btn btn-sm btn-warning me-2'><i class='fa-solid fa-edit'></i></a>" +
-
-                    "<form action='{{ url('delete-polygon') }}/" + feature.properties.id + "' method='POST'>" +
+                    "<form action='{{ url('delete-polygon') }}/" + feature.properties.id +
+                    "' method='POST' onsubmit='return confirm(\"Yakin Anda ingin menghapus data ini?\")'>" +
                     '{{ csrf_field() }}' +
                     '{{ method_field('DELETE') }}' +
+                    "<button type='submit' class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></button>" +
+                    "</form>" +
+                    "</div>";
 
-                    "<button type='submit' class='btn btn-danger' onclick='return confirm(Yakin Anda ingin menghapus data ini?)'><i class='fa-solid fa-trash-can'></i></button>" +
-                    "</form>"
-
-                "</div>";
                 layer.on({
                     click: function(e) {
-                        polygon.bindPopup(popupContent);
+                        layer.bindPopup(popupContent).openPopup(e.latlng);
                     },
                     mouseover: function(e) {
-                        polygon.bindTooltip(feature.properties.name, {
-                            sticky: true,
+                        layer.bindTooltip(feature.properties.name, {
+                            sticky: true
                         });
-                    },
+                    }
                 });
-            },
+            }
         });
+
         $.getJSON("{{ route('api.polygons') }}", function(data) {
             polygon.addData(data);
             map.addLayer(polygon);
