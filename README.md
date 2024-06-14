@@ -36,6 +36,29 @@ Situs web ini dibangun untuk menyajikan informasi terkini mengenai lokasi-lokasi
 3. Stellarium
 
 ### Tangkapan layar
-1. Landing page
+1. Halaman Awal
    ![landing](https://github.com/veronicatia/pgwl-responsi/assets/128561704/1aaecd66-051f-46f7-8cdc-fddeb53e00c0)
+   ![landing2](https://github.com/veronicatia/pgwl-responsi/assets/128561704/350456d2-f031-40fa-8bf4-b4bb05d1ddfc)
+2. Tampilan Peta
+   ![Screenshot 2024-06-14 101558](https://github.com/veronicatia/pgwl-responsi/assets/128561704/2e94dfba-3f3d-4e64-a82a-4a9be5a80864)
+3. Dashboard
+   ![dashboard](https://github.com/veronicatia/pgwl-responsi/assets/128561704/c0bbb430-b945-41bc-abc3-1fafb060e956)
+   ![dashboard2](https://github.com/veronicatia/pgwl-responsi/assets/128561704/6fa4f3cd-cda0-48dc-a698-e41062ed0a50)
+4. Tabel
+   ![tabelpoint](https://github.com/veronicatia/pgwl-responsi/assets/128561704/7f66d493-0d5e-46ec-b5fd-5287f179e83e)
+   ![tabelpolygon](https://github.com/veronicatia/pgwl-responsi/assets/128561704/486949db-47ea-4f07-8c0f-54c98648c127)
+5. Tambah data
+   ![add](https://github.com/veronicatia/pgwl-responsi/assets/128561704/4e4c14dc-2e22-4c56-a475-7e703cab3bcb)
+6. Edit Data
+   ![edit](https://github.com/veronicatia/pgwl-responsi/assets/128561704/778f732e-b451-4f8d-b17d-1638d5a143e0)
+7. Info
+   ![info](https://github.com/veronicatia/pgwl-responsi/assets/128561704/30c62108-6362-4dc6-95a4-02d96310d128)
+
+
+
+
+
+
+
+
 
